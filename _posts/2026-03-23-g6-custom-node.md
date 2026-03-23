@@ -3,6 +3,8 @@ layout: post
 title: "G6 自定义节点从入门到实战"
 date: 2026-03-23
 categories: 前端 可视化
+toc: true
+toc_sticky: true
 ---
 
 ## 1.前言 ✍
@@ -73,7 +75,7 @@ onMounted(() => {
 
 &ensp;&ensp;让我们从一个简单的例子开始 - 创建一个 带有主副标题的矩形节点：
 
-### 3.1 编写自定义节点类
+#### 3.1 编写自定义节点类
 
 ```javascript
 import { Rect, register, Graph, ExtensionCategory } from "@antv/g6";
@@ -127,7 +129,7 @@ this.upsert(id, type, attrs, container);
 
 this.upsert('subtitle', 'text', subtitleStyle, container)表示创建ID为'subtitle'的文本元素，并应用getSubtitleStyle准备好的样式。
 
-### 3.2 注册自定义节点
+#### 3.2 注册自定义节点
 
 使用 register 方法注册节点类型，这样 G6 才能识别你的自定义节点:
 
@@ -143,7 +145,7 @@ register 方法需要三个参数：
 <br/>
 类定义：CustomNode 是我们刚刚创建的节点类
 
-### 3.3 应用自定义节点
+#### 3.3 应用自定义节点
 
 在图配置中使用自定义节点：
 
@@ -196,7 +198,7 @@ graph.render();
 
 我们在创建G6的实例时，传入了图的数据。但是如何在自定义节点中拿到这些数据呢？G6提供了两种数据获取方式。
 
-### 4.1 通过attributes参数获取
+#### 4.1 通过attributes参数获取
 
 ```javascript
 class CustomNode extends Rect {
@@ -240,7 +242,7 @@ nodes: [
 <br/>
 总结：d 是当前节点的 “信息载体”，通过 d.data 可以访问节点的原始数据，从而实现样式的动态配置。
 
-### 4.2 通过this.context.graph获取原始数据
+#### 4.2 通过this.context.graph获取原始数据
 
 ```javascript
 class CustomNode extends Rect {
@@ -415,7 +417,7 @@ drawPieShape(attributes, container) {
 &ensp;&ensp;前序章节已介绍 G6 原生自定义节点的实现。但在 Vue 项目中，这种方式存在局限：无法复用 Vue 组件、节点状态脱离响应式体系、样式需适配 G6 配置格式。
 为解决这些问题，G6 提供了 g6-extension-vue 扩展，支持以Vue 组件的形式定义节点——这意味着我们可以用熟悉的 props 接收节点数据、用 computed 管理节点状态、用 <style scoped> 隔离节点样式，甚至直接引入 Vue UI 库组件（如 Button、Input）构建节点内部结构。
 
-### 6.1 安装依赖
+#### 6.1 安装依赖
 
 ```javascript
 # 使用npm
@@ -427,7 +429,7 @@ pnpm add g6-extension-vue
 
 ```
 
-### 6.2 注册Vue节点类型
+#### 6.2 注册Vue节点类型
 
 ```javascript
 import { ExtensionCategory, register } from "@antv/g6";
@@ -444,7 +446,7 @@ register 方法需要三个参数：
 <br/>
 类定义：VueNode 是 g6-extension-vue 导出的实现类
 
-### 6.3 定义业务组件
+#### 6.3 定义业务组件
 
 定义一个简单的 Vue 组件作为节点的内容（以模板写法为例）：
 
@@ -455,7 +457,7 @@ register 方法需要三个参数：
 </template>
 ```
 
-### 6.4 使用组件
+#### 6.4 使用组件
 
 在图配置中使用自定义的 Vue 节点。通过在图配置中指定节点类型和样式，来使用自定义的 Vue 组件（以模板写法为例）。
 
@@ -478,7 +480,7 @@ graph.render();
 &ensp;&ensp;节点是图的基础 “个体”，但节点之间的关系（如依赖、流向、层级）需要通过边来表达。
 G6 提供了直线、折线、曲线等内置边类型，但在复杂场景中（如脑图的直角转弯边、流程图的条件分支边、动态变化的流量边），内置边往往难以满足个性化需求。像节点一样，边也可以“随心所欲”的绘制——这就是自定义边。当然，自定义边的绘制和自定义节点如出一辙。
 
-### 7.1了解边的基本构成
+#### 7.1了解边的基本构成
 
 key：边的主图形，表示边的主要形状，例如直线、折线等；
 <br/>
@@ -488,7 +490,7 @@ arrow：箭头，用于表示边的方向；
 <br/>
 halo：主图形周围展示光源效果的图形；
 
-### 7.2编写自定义类
+#### 7.2编写自定义类
 
 ```javascript
 import { BaseEdge } from '@antv/g6';
@@ -520,7 +522,7 @@ class MyLineEdge extends BaseEdge {
 }
 ```
 
-### 7.3注册自定义边
+#### 7.3注册自定义边
 
 使用register方法注册边类型，这样G6才能识别你的自定义边
 
@@ -538,7 +540,7 @@ register 方法需要三个参数：
 <br/>
 类定义：CustomEdge 是我们刚刚创建的节点类
 
-### 7.4应用自定义边
+#### 7.4应用自定义边
 
 在图的配置中，通过设置 edge.type 来使用我们的自定义边：
 
@@ -570,7 +572,7 @@ const graph = new Graph({
 graph.render();
 ```
 
-### 7.5从简单到复杂
+#### 7.5从简单到复杂
 
 &ensp;&ensp;在所有边的形态中，自定义路径的折线边无疑是最基础也最常用的场景：小到树形图中父子节点的层级连接，大到拓扑图中多节点的分支关系，折线边凭借其规整的转向和明确的路径，成为承载 “层级”“方向”“分支” 等语义的最佳选择。
 
