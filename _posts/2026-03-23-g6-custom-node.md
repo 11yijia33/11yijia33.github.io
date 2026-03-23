@@ -53,7 +53,7 @@ onMounted(() => {
 <br/>
 &ensp;&ensp;当你了解了如何创建一个基本的G6图表后，我们开始进入正题。
 <br/>
-![G6自定义节点效果图](../assets/images/g6-1.png)
+![G6自定义节点效果图](/assets/images/g6-1.png)
 
 ## 2.为什么需要自定义节点🤔
 
@@ -113,7 +113,7 @@ class CustomNode extends Rect {
 注释：
 ① x,y：表示以节点的中心为原点的x、y坐标（见下图，箭头代表x、y的正方向）。可以将节点类比为开启相对定位的父元素，那么x,y就是节点内部的标题（子元素）的left和top
 <br/>
-![G6自定义节点效果图](../assets/images/g6-2.png)
+![G6自定义节点效果图](/assets/images/g6-2.png)
 <br/>
 ② this.upsert:
 
@@ -186,11 +186,11 @@ graph.render();
 <br/>
 它看起来像这样：
 <br/>
-![G6自定义节点效果图](../assets/images/g6-3.png)
+![G6自定义节点效果图](/assets/images/g6-3.png)
 <br/>
 让我们来总结一下：
 <br/>
-![G6自定义节点效果图](../assets/images/g6-4.png)
+![G6自定义节点效果图](/assets/images/g6-4.png)
 
 ## 4.数据的流向
 
@@ -271,7 +271,7 @@ class CustomNode extends Rect {
 
 ❓super.render(...)可以和this.drawSubtitleShape(...)交换位置吗？
 <br/>
-![G6自定义节点效果图](../assets/images/g6-5.png)
+![G6自定义节点效果图](/assets/images/g6-5.png)
 
 ✅ 不可以。为了确保 父类先完成基础初始化，super.render(...) 需要放在 this 自定义逻辑之前，为子类的自定义操作（如 drawSubtitleShape）提供必要的环境和依赖。如果颠倒顺序，可能导致父类未初始化的资源无法被子类访问，引发图形绘制失败或数据错误。这是继承场景中 “先父后子” 初始化顺序的必然要求。
 
@@ -329,7 +329,7 @@ drawNameShape(attributes,container){
 
 ❓为什么使用了tooltip插件后，鼠标移入节点报错（见下图），如何解决？
 <br/>
-![G6自定义节点效果图](../assets/images/g6-6.png)
+![G6自定义节点效果图](/assets/images/g6-6.png)
 
 ✅ 见下方代码。问题的根源在于 this.upsert返回的元素没有id值。afterCreate 回调通过手动指定图形 id 为节点的唯一 ID，解决了 G6 因 “图形 ID 重复、无效或关联失败” 导致的识别错误。核心是利用节点 ID 的唯一性，确保图形 ID 可被 G6 正确识别和管理。
 
@@ -356,7 +356,7 @@ drawImageShape(attributes, container) {
 
 ❓在自定义节点内嵌套G2饼图报错如何解决？
 <br/>
-![G6自定义节点效果图](../assets/images/g6-7.png)
+![G6自定义节点效果图](/assets/images/g6-7.png)
 
 ✅见下方代码。核心问题是试图给一个 undefined 变量的 update 属性赋值，而这个变量未被正常初始化。属于G2内部问题，从源码中可推断。
 
@@ -632,7 +632,8 @@ graph.render();
 
 它看起来像这样：
 <br/>
-![G6自定义节点效果图](../assets/images/g6-8.png)
+![G6自定义节点效果图](/assets/images/g6-8.png)
+<br/>
 注释：
 <br/>
 SVG路径指令：
