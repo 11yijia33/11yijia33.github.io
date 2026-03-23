@@ -1,4 +1,6 @@
 title: 我的前端技术笔记
 description: 分享前端可视化、工程化相关的技术总结
 theme: minima # GitHub Pages 官方推荐的简洁主题
+plugins:
+  - jekyll-toc # 👈 开启目录插件
 author: 11yijia33
