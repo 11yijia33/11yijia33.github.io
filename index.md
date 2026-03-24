@@ -1,5 +1,5 @@
 ---
-layout: home
+layout: default
 ---
 
 这里是我记录前端技术学习与实践的地方，主要分享：
